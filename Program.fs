@@ -15,7 +15,7 @@ let main _ =
     while not (shouldCloseWindow ()) do
         let input = readInput ()
         gameState <- update input gameState
-        draw gameState
+        draw input gameState
 
     Raylib.CloseWindow()
     0
