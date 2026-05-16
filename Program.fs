@@ -13,7 +13,8 @@ let main _ =
     let mutable gameState = initialState
 
     while not (shouldCloseWindow ()) do
-        let input = readInput ()
+        let deltaTime = Raylib.GetFrameTime()
+        let input = readInput deltaTime
         gameState <- update input gameState
         draw input gameState
 

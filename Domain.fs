@@ -36,17 +36,45 @@ type SwordWeapon(?damage: int, ?cooldown: float32, ?range: float32) =
             with get () = range
             and set value = range <- value
 
+type IEnemy =
+    abstract EnemyType: string
+    abstract Health: int with get, set
+    abstract Damage: int with get, set
+    abstract Gold: int with get, set
+
+type SlimeEnemy(?health: int, ?damage: int, ?gold: int) =
+    let mutable health = defaultArg health 5
+    let mutable damage = defaultArg damage 1
+    let mutable gold = defaultArg gold 3
+
+    interface IEnemy with
+        member _.EnemyType = "Slime"
+
+        member _.Health
+            with get () = health
+            and set value = health <- value
+
+        member _.Damage
+            with get () = damage
+            and set value = damage <- value
+
+        member _.Gold
+            with get () = gold
+            and set value = gold <- value
+
 type Player =
     { Position: Position
       Facing: FacingDirection
       EquippedWeapon: IWeapon
+      AttackCooldownRemaining: float32
+      AttackVisualTimer: float32
       Speed: int
       HP: int
       Gold: int }
 
 type Enemy =
     { Position: Position
-      HP: int }
+      Stats: IEnemy }
 
 type Room =
     { Number: int
@@ -63,7 +91,8 @@ type InputState =
       MoveRight: bool
       MoveUp: bool
       MoveDown: bool
-      IsAttacking: bool }
+      IsAttacking: bool
+      DeltaTime: float32 }
 
 module World =
     let screenWidth = 960

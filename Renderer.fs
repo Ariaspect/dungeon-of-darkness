@@ -39,7 +39,10 @@ let draw (input: InputState) (state: GameState) =
     for enemy in state.Enemies do
         Raylib.DrawCircle(enemy.Position.X, enemy.Position.Y, float32 World.enemyRadius, Color.Maroon)
 
-    if input.IsAttacking then
+        let enemyLabel = $"{enemy.Stats.EnemyType} HP: {enemy.Stats.Health}"
+        Raylib.DrawText(enemyLabel, enemy.Position.X - 36, enemy.Position.Y - 36, 14, Color.RayWhite)
+
+    if state.Player.AttackVisualTimer > 0.0f then
         drawSwordCone state.Player
 
     Raylib.DrawCircle(state.Player.Position.X, state.Player.Position.Y, float32 World.playerRadius, Color.SkyBlue)
