@@ -1,8 +1,8 @@
 module DungeonOfDarkness.Domain
 
 type Position =
-    { X: int
-      Y: int }
+    { X: float32
+      Y: float32 }
 
 type FacingDirection =
     | Up
@@ -64,11 +64,12 @@ type SlimeEnemy(?health: int, ?damage: int, ?gold: int) =
 
 type Player =
     { Position: Position
+      Velocity: Position
       Facing: FacingDirection
       EquippedWeapon: IWeapon
       AttackCooldownRemaining: float32
       AttackVisualTimer: float32
-      Speed: int
+      Speed: float32
       HP: int
       Gold: int }
 
